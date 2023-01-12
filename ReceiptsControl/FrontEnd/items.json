@@ -1,0 +1,184 @@
+{
+    "items": [{
+
+            "id": "1",
+            "nombre": "Coca Cola",
+            "precio": "2.50 €",
+            "img": "../images/cocacola.jpg",
+            "categoria": "bebida"
+        },
+        {
+            "id": "2",
+            "nombre": "Coca Cola Zero",
+            "precio": "2.50 €",
+            "img": "../images/cocacolazero.jpg",
+            "categoria": "bebida"
+
+        },
+        {
+            "id": "3",
+            "nombre": "Fanta",
+            "precio": "2.50 €",
+            "img": "../images/fanta.jpg",
+            "categoria": "bebida"
+
+        },
+        {
+            "id": "4",
+            "nombre": "Fanta Zero",
+            "precio": "2.50 €",
+            "img": "../images/fantazero.jpg",
+            "categoria": "bebida"
+
+        },
+        {
+            "id": "5",
+            "nombre": "Café Descafeinado",
+            "precio": "1.20 €",
+            "img": "../images/cafe.jpg",
+            "categoria": "bebida"
+
+        },
+
+        {
+            "id": "6",
+            "nombre": "Tercio Cerveza",
+            "precio": "3,00 €",
+            "img": "../images/tercio.jpg",
+            "categoria": "bebida"
+
+        },
+        {
+            "id": "7",
+            "nombre": "Red Bull",
+            "precio": "2.25 €",
+            "img": "../images/redbull.jpg",
+            "categoria": "bebida"
+
+        },
+        {
+            "id": "8",
+            "nombre": "Monster",
+            "precio": "2.60 €",
+            "img": "../images/monster.jpg",
+            "categoria": "bebida"
+
+        },
+        {
+            "id": "9",
+            "nombre": "Infusión",
+            "precio": "0,70 €",
+            "img": "../images/infusion.jpg",
+            "categoria": "bebida"
+        },
+        {
+
+            "id": "10",
+            "nombre": "Patatas Bravas",
+            "precio": "5.50 €",
+            "img": "../images/patatasbravas.jpg",
+            "categoria": "aperitivos"
+
+        }, {
+            "id": "11",
+            "nombre": "Pincho de Tortilla",
+            "precio": "3.50 €",
+            "img": "../images/pinchotortilla.jpg",
+            "categoria": "aperitivos"
+
+        }, {
+            "id": "12",
+            "nombre": "Croquetas de Jamón",
+            "precio": "6,50 €",
+            "img": "../images/croquetas.jpg",
+            "categoria": "aperitivos"
+
+        }, {
+            "id": "13",
+            "nombre": "Empanadillas",
+            "precio": "5.00 €",
+            "img": "../images/empanadillas.jpg",
+            "categoria": "aperitivos"
+
+        }, {
+            "id": "14",
+            "nombre": "Calamares",
+            "precio": "7,50 €",
+            "img": "../images/calamares.jpg",
+            "categoria": "aperitivos"
+
+        }, {
+            "id": "15",
+            "nombre": "Aceitunas",
+            "precio": "1.50 €",
+            "img": "../images/aceitunas.jpg",
+            "categoria": "aperitivos"
+
+        },
+        {
+            "id": "16",
+            "nombre": "Ensaladilla rusa",
+            "precio": "3.50 €",
+            "img": "../images/ensaladilla.jpg",
+            "categoria": "aperitivos"
+
+        },
+        {
+
+            "id": "17",
+            "nombre": "Tarta de queso",
+            "precio": "4.50 €",
+            "img": "../images/tartaqueso.jpg",
+            "categoria": "postre"
+
+        },
+        {
+            "id": "18",
+            "nombre": "Tiramisú de limón",
+            "precio": "3.50 €",
+            "img": "../images/tiramisu.jpg",
+            "categoria": "postre"
+
+        },
+        {
+            "id": "19",
+            "nombre": "Natillas de Café",
+            "precio": "3.50 €",
+            "img": "../images/natillas.jpg",
+            "categoria": "postre"
+
+        },
+        {
+            "id": "20",
+            "nombre": "Bolas de Helado",
+            "precio": "4.50 €",
+            "img": "../images/helado.jpg",
+            "categoria": "postre"
+
+        },
+        {
+            "id": "21",
+            "nombre": "Granizdo",
+            "precio": "3.00 €",
+            "img": "../images/granizado.jpg",
+            "categoria": "postre"
+
+        },
+        {
+            "id": "22",
+            "nombre": "Arroz con leche",
+            "precio": "3.50 €",
+            "img": "../images/arrozconleche.jpg",
+            "categoria": "postre"
+
+        },
+        {
+            "id": "23",
+            "nombre": "Pieza de fruta",
+            "precio": "1.00 €",
+            "img": "../images/fruta.jpg",
+            "categoria": "postre"
+
+        }
+    ]
+}

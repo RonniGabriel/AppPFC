@@ -1,0 +1,59 @@
+/* GENERAL STYLE */
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+
+/* LOGIN STYLE */
+
+.loginPage {
+    display: grid;
+    place-items: center;
+    padding: 10%;
+    background-color: aqua;
+}
+
+.title {
+    font-size: 40px;
+}
+
+.dataAcceso {
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+    width: 400px;
+}
+
+.dataAcceso>input {
+    padding: 15px;
+    margin: 5%;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.LogIn {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 20px;
+}
+
+#btnAcceso {
+    width: 120px;
+    height: 50px;
+    font-size: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+footer {
+    display: grid;
+    place-items: center;
+}
+
+footer>h3 {
+    margin-top: 50px;
+}

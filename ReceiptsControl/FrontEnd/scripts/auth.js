@@ -1,0 +1,61 @@
+import "./firebase.js";
+
+console.log("Script Autenticación ");
+
+// METODOS DE LOS SERVICIOS DE FIRESBASE QUE VAMOS A USAR 
+
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { getDocs, collection } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+// IMPORTAMOS LAS VARIABLES QUE TENEMOS INICIALIZADAS EN FIREBASE.JS
+import { auth, db } from "./firebase.js";
+
+
+/* ACCESO A LA PLATAFORMA - AUTENTICACIÓN */
+
+const btnAcceso = document.getElementById('btnAcceso');
+
+if (btnAcceso) {
+    btnAcceso.addEventListener('click', async(e) => {
+
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+            console.log("Usuario logeado");
+
+            onAuthStateChanged(auth, async(user) => {
+
+                if (user) {
+                    const uid = user.uid;
+                    console.log(uid);
+                    window.location.href = "app.html";
+
+
+                } else {
+
+                }
+            });
+
+
+        } catch (error) {
+            if (error.code === 'auth/user-not-found') {
+                alert('Email no registrado ');
+            } else if (error.code === 'auth/wrong-password') {
+                alert('Contraseña erronea');
+
+            } else if (error.code === 'auth/invalid-email') {
+                alert('Formato de email erróneo');
+
+            } else if (error.code) {
+                alert('Algo ha ocurrido mal')
+            }
+        }
+    });
+}
+
+
+// Funcion de comprobar el Acceso a la app

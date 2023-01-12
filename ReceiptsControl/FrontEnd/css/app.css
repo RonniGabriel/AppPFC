@@ -1,0 +1,213 @@
+/* APP MENU | Mobile First Design  */
+
+ :root {
+    --black: rgb(31, 29, 29);
+    --white: #fff;
+    --azul: #0751a6;
+    --yellow: #d3b717;
+    --red: #e71247;
+    --grey: #ada9a9;
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+nav {
+    display: flex;
+    background-color: var(--black);
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #d3b717;
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    align-items: center;
+    color: aliceblue;
+    width: 400px;
+}
+
+i {
+    font-size: 1.5rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.fa-solid:hover {
+    color: var(--yellow);
+    transform: scale(1.2);
+}
+
+.menu>li>i:active {
+    transform: translateY(2px);
+    transition: all 300ms ease;
+}
+
+
+/* Submenu de acciones */
+
+.carpeta:hover>.submenu {
+    visibility: visible;
+    opacity: 1;
+}
+
+.carpeta {
+    position: relative;
+}
+
+.submenu {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--grey);
+    color: black;
+    width: 230px;
+    box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.5);
+    position: absolute;
+    visibility: hidden;
+    display: none;
+    top: 50px;
+    right: 50px;
+    padding: 14px 0px;
+    opacity: 0;
+    border: 1px solid rgb(199, 195, 195);
+    border-radius: 10px;
+}
+
+.submenu::before {
+    content: '';
+    height: 0;
+    width: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid var(--grey);
+    position: absolute;
+    top: -12px;
+    left: 190px;
+}
+
+.submenu>li {
+    display: block;
+    padding: 6px;
+    margin-left: 14px;
+    margin-top: 10px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: all 300ms ease;
+}
+
+.submenu>li:hover {
+    background-color: #d3b717;
+    color: white;
+    transform: scale(1.2);
+    border-radius: 10px;
+    padding-left: 30px;
+    font-size: 14px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.submenu>li:active {
+    transform: translateY(3px);
+    transition: all 500ms ease;
+}
+
+
+/* Pad de pedidos anteriores  */
+
+#pedidosContainer,
+#pedidosPad {
+    position: absolute;
+    width: 800px;
+    height: 500px;
+    background-color: #0751a6;
+    top: 100px;
+    right: 60%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: none;
+}
+
+
+/* Contador de pedidos actuales  */
+
+.counterOrder {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 10px;
+    padding: 15%;
+    color: aliceblue;
+    background-color: #c70724;
+    border-radius: 50%;
+    border: 1px solid #a41515;
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (max-width: 830px) {
+    #pedidosContainer,
+    #pedidosPad {
+        width: 550px;
+        height: 600px;
+        right: -4rem;
+        background-color: #21a607;
+    }
+}
+
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and (min-width: 1200px) {
+    .col-1 {
+        width: 8.33%;
+    }
+    .col-2 {
+        width: 16.66%;
+    }
+    .col-3 {
+        width: 25%;
+    }
+    .col-4 {
+        width: 33.33%;
+    }
+    .col-5 {
+        width: 41.66%;
+    }
+    .col-6 {
+        width: 50%;
+    }
+    .col-7 {
+        width: 58.33%;
+    }
+    .col-8 {
+        width: 66.66%;
+    }
+    .col-9 {
+        width: 75%;
+    }
+    .col-10 {
+        width: 83.33%;
+    }
+    .col-11 {
+        width: 91.66%;
+    }
+    .col-12 {
+        width: 100%;
+    }
+}
