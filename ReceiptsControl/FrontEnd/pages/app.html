@@ -15,40 +15,76 @@
             <div class="logo col-6"> HELP DESK </div>
             <div class="col-6 menuContainer">
                 <ul class="menu">
-                    <li class="carpeta"><i class="fa-solid fa-clipboard-list"></i>
+                    <li class="carpeta"><i class="fa-solid fa-clipboard-list "></i>
                         <ul class="submenu ">
-                            <li>Añadir un usuario</li>
+                            <li id="altaUsuario">Añadir un usuario</li>
                             <li>Submenu 02</li>
                             <li>Submenu 03</li>
                         </ul>
                     </li>
-                    <li class="carpeta"><i class="fa-solid fa-inbox "></i>
-                        <div id="pedidosContainer"> PEDIDOS ANTERIORES </div>
+                    <li id="pad02" class="carpeta"><i class="fa-solid fa-inbox "></i>
+                        <div id="OldOrdersPad">
+                            <p>PEDIDOS ANTERIORES</p>
+                            <div id="oldOrders"></div>
+                        </div>
                     </li>
-                    <li class="carpeta"><i class="fa-solid fa-cart-shopping ">
+                    <li id="pad03" class="carpeta"><i class="fa-solid fa-cart-shopping ">
                     <p class="counterOrder ">5</p>
-                    <div id="pedidosPad">pedidos </div>
+                    <div id="pedidosPad"> 
+                        <p>Área de pedidos </p>
+                        <div id="cart" ></div>
+                       
+                        
+                    </div>
                 </i></li>
-                    <li><i class="fa-solid fa-power-off "></i></li>
+                    <li><i class="fa-solid fa-power-off " id="btnSignOff"></i></li>
                 </ul>
             </div>
         </nav>
-        <section></section>
         <section>
-            <div id="productos"> </div>
+            <form class="AddNewUser" style="display: none;">
+                <p>Formulario nuevo usuario </p>
+                <div class="btnNuevoUsuario">
+                    <button id="nuevoUsuario"> Crear usuario  </button>
+                </div>
+                <div class="DatosEmpleado">
+                    <label>Nombre</label>
+                    <input type="text" id="nombre">
+                    <label>Apellidos</label>
+                    <input type="text" id="apellidos">
+                </div>
+                <div class="DatosUsuario">
+                    <label>Correo</label>
+                    <input type="text" id="correo">
+                    <label>Contraseña</label>
+                    <input type="text" id="contraseña">
+                </div>
+                <div class="DatosExtras">
+                    <div class="Contacto">
+                        <label for="">Telefono</label>
+                        <input type="text" id="telefono">
+                    </div>
+                    <div class="Categoria">
+                        <label for="">Categoria</label>
+                        <select name="" id="categoria">
+                        <option value="">Camarero</option>
+                        <option value="">Cocina</option>
+                        <option value="">Administrador</option>
+                    </select>
+                    </div>
+                </div>
+            </form>
         </section>
-        <section>
-            <div id="cart"></div>
+        <section class="Pad">
+            <div id="productos"> </div>
         </section>
 
 
 </head>
 <!-- Script JS -->
 
-<script type="module " src="../scripts/firebase.jss"></script>
-<script type="module" src="../scripts/app.js"></script>
+<script type="module" src="../scripts/main.js"></script>
 
-<script type="module " src="../scripts/auth.js"></script>
 
 
 

@@ -1,11 +1,26 @@
-console.log('Se carga la pagina de la App');
 import "./auth.js";
+
+import { displayOldOrders } from "./oldOrders.js";
+
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { getDocs, collection } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
     showProductos();
 
+    functionalitiesApp();
+
+    displays();
+
+
+
+
+
 });
+
 
 
 function showProductos() {
@@ -41,7 +56,6 @@ function showProductos() {
 
                 cartDiv.append(cart, cartItems, purchaseTotal, addOrder);
 
-
                 obj01.items.forEach(element => {
 
                     let divProduct = document.createElement('div');
@@ -75,6 +89,8 @@ function showProductos() {
                     document.getElementById('productos').append(divProduct);
 
                     buyButton.addEventListener("click", function() {
+
+
                         let divBuy = document.createElement('div');
                         divBuy.className = "divBuy";
                         let itemSelected = document.createElement('li');
@@ -84,7 +100,7 @@ function showProductos() {
                         deleteButton.innerText = "x";
                         deleteButton.className = "DeleteButton";
                         itemSelected.innerText = element.nombre + " - ";
-                        itemSelected.innerText += "Precio " + element.precio + " x" + checkAmount(countProducts.value);
+                        itemSelected.innerText += "Precio " + element.precio + "€  x" + checkAmount(countProducts.value);
                         divBuy.append(itemSelected, deleteButton);
 
                         document.getElementById('itemsCart').append(divBuy);
@@ -103,13 +119,10 @@ function showProductos() {
                         });
                         total += checkAmount(countProducts.value) * element.precio;
                         total = Math.round((total + Number.EPSILON) * 100) / 100;
-                        purchaseTotal.innerText = "Total Pedido:" + total + "€";
+                        purchaseTotal.innerText = "Total: " + total + "€";
+
 
                     });
-
-
-
-
 
 
                 });
@@ -119,7 +132,7 @@ function showProductos() {
                 console.log("Archivo no encontrado")
             }
         } else if (ajax.readyState == 0 || ajax.readyState == 1 || ajax.readyState == 2) {
-            console.log("Loading")
+
         }
     }
 
@@ -128,5 +141,73 @@ function showProductos() {
         return returnAmount;
     }
 
+
+}
+
+function functionalitiesApp() {
+
+    /* Observador de si acceso a la app  */
+    onAuthStateChanged(auth, async(user) => {
+        // Si existe el usuario 
+        if (user) {
+
+            // Peticion a la base de datos los pedidos anteriores 
+            const querySnapshot = await getDocs(collection(db, 'pedidosCerrados'));
+            displayOldOrders(querySnapshot.docs);
+
+
+        } else {
+            displayOldOrders([]);
+
+        }
+    });
+
+    /* Comprobador de Registro */
+
+    const loginCheck = user => {
+        // Si esta registrado el usuario 
+        if (user) {
+
+            // Aqui debe ir si es cocinero solo se veria los pedidos 
+
+        } else {
+
+            // 
+
+
+        }
+    }
+
+    /* Cerrar sesion : Servicio Firebase sign Out */
+    const logOut = document.getElementById('btnSignOff');
+
+    logOut.addEventListener('click', async() => {
+        await signOut(auth);
+        console.log("user sign out");
+        window.location.href = "login.html";
+    });
+
+
+}
+
+function displays() {
+
+    const pad02 = document.getElementById('pad02').addEventListener('click', () => {
+        const oldOrdersPad = document.getElementById('OldOrdersPad');
+        if (oldOrdersPad.style.display === 'none') {
+            oldOrdersPad.style.display = 'block';
+        } else {
+            oldOrdersPad.style.display = 'none';
+        }
+    });
+
+    const pad03 = document.getElementById('pad03').addEventListener('click', () => {
+        const pedidosPad = document.getElementById('pedidosPad');
+        if (pedidosPad.style.display === 'none') {
+            pedidosPad.style.display = 'block';
+        } else {
+            pedidosPad.style.display = 'none';
+        }
+    });
 
 }

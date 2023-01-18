@@ -13,6 +13,7 @@
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 li {
@@ -51,11 +52,6 @@ i {
     font-size: 1.5rem;
     position: relative;
     cursor: pointer;
-}
-
-.fa-solid:hover {
-    color: var(--yellow);
-    transform: scale(1.2);
 }
 
 .menu>li>i:active {
@@ -129,25 +125,6 @@ i {
     transform: translateY(3px);
     transition: all 500ms ease;
 }
-
-
-/* Pad de pedidos anteriores  */
-
-#pedidosContainer,
-#pedidosPad {
-    position: absolute;
-    width: 800px;
-    height: 500px;
-    background-color: #0751a6;
-    top: 100px;
-    right: 60%;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    display: none;
-}
-
-
-/* Contador de pedidos actuales  */
 
 .counterOrder {
     position: absolute;
@@ -229,56 +206,254 @@ i {
 
 /*  Carrito */
 
-#cart {
-    width: 30em;
-    height: 40rem;
-    border-radius: 20px;
-    background-color: #7e8c9d;
-    position: absolute;
-    top: 150px;
-    left: 20%;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+::-webkit-scrollbar {
+    display: none;
 }
 
-#cart>li,
-#cart>button {
-    padding: 1rem;
-    font-size: 1.2rem;
-    margin: 1%;
+
+/* Pedidos Pad */
+
+#pedidosPad {
+    width: 25rem;
+    height: 29rem;
+    position: absolute;
+    background-color: rgb(170, 170, 170);
+    color: black;
+    right: -20px;
+    top: 40px;
     border-radius: 15px;
+    padding: 5%;
+    font-size: 1rem;
+    display: none;
+    border: 1px solid black;
+}
+
+#pedidosPad::before {
+    content: '';
+    height: 0;
+    width: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid var(--yellow);
+    position: absolute;
+    top: 10px;
+    left: 600px;
+}
+
+#pedidosPad>p {
+    padding: 2%;
+    margin: 2%;
+    font-size: 1.2rem;
+}
+
+#cart {
+    width: 90%;
+    height: 15rem;
+    margin: 3%;
+}
+
+#cart>li {
+    width: 300px;
+    margin: 2%;
+}
+
+#itemsCart {
+    height: 15rem;
+    overflow-y: scroll;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 0px 0px 0.5px black;
+}
+
+#addOrder {
+    height: 50px;
+    width: 180px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 2%;
+    background-color: #d3b717;
 }
 
 .divBuy {
     display: flex;
+    padding: 2%;
+    margin: 0.5%;
     justify-content: space-between;
     align-items: center;
+    font-size: 0.9rem;
 }
 
-.divBuy>li {
-    margin: 5%;
-    background-color: #0751a6;
-    padding: 0.5rem;
+.DeleteButton {
+    font-size: 1.5rem;
+    padding: 5px;
+    border: none;
+    color: red;
+    font-weight: bold;
+    background-color: transparent;
+    cursor: pointer;
 }
 
-.divBuy>button {
-    margin-right: 50px;
+.DeleteButton:hover {
+    scale: 1.2;
+}
+
+.DeleteButton:active {
+    transform: translateY(5px);
+    transition: all 300ms ease;
+}
+
+
+/* Pedidos Cerrados */
+
+#OldOrdersPad {
+    position: absolute;
+    top: 40px;
+    left: -440px;
+    width: 30rem;
+    background-color: #9ea5ad;
+    color: black;
+    font-weight: bold;
+    border-radius: 20px;
+    display: none;
+}
+
+#OldOrdersPad::before {
+    content: '';
+    height: 0;
+    width: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 12px solid var(--yellow);
+    position: absolute;
+    top: -10px;
+    right: 20px;
+}
+
+#OldOrdersPad>p {
+    padding: 5%;
+}
+
+#oldOrders {
+    margin: 4%;
+    height: 35rem;
+    overflow-y: scroll;
+}
+
+.close {
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgb(226, 225, 225);
+    box-shadow: 0px 0px 0px 1px var(--black);
+}
+
+.close>ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5%;
+}
+
+.close>p {
+    height: 100px;
+    padding-left: 5%;
+    overflow-y: scroll;
+}
+
+
+/* FORMLUARIO NUEVO USUARIO */
+
+.AddNewUser {
+    background-color: #cac5c5;
+    padding: 2%;
+    width: 700px;
+    border-radius: 25px;
+    position: absolute;
+    top: 150px;
+    left: 10%;
+}
+
+.AddNewUser>p {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 2%;
+    font-weight: bold;
+}
+
+.btnNuevoUsuario {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 2%;
+}
+
+.btnNuevoUsuario>button {
+    padding: 1.2%;
     font-size: 1.2rem;
-    padding: 10px;
+    font-weight: bold;
+    border: 2px solid black;
+    background-color: var(--yellow);
+    border-radius: 10px;
+}
+
+.btnNuevoUsuario>button:active {
+    transform: translateY(5px);
+    transition: all 300ms ease;
+}
+
+.DatosEmpleado,
+.DatosUsuario,
+.DatosExtras {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3%;
+    font-weight: bold;
+}
+
+.DatosEmpleado>input,
+.DatosUsuario>input {
+    padding: 1%;
+    width: 200px;
+    padding: 1%;
+    border-radius: 10px;
+}
+
+.Contacto {
+    align-items: center;
+    font-weight: bold;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
+
+.Contacto>input {
+    padding: 2%;
+    width: 200px;
+    border-radius: 10px;
+}
+
+.Categoria {
+    display: flex;
+    width: 300px;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.Categoria>select {
+    width: 200px;
+    height: 35px;
+    border-radius: 10px;
+    font-size: 1rem;
 }
 
 
 /* Large devices (laptops/desktops, 992px and up) */
 
-@media only screen and (max-width: 830px) {
-    #pedidosContainer,
-    #pedidosPad {
-        width: 550px;
-        height: 600px;
-        right: -4rem;
-        background-color: #21a607;
-    }
-}
+@media only screen and (max-width: 830px) {}
 
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */

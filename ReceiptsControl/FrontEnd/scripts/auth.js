@@ -1,12 +1,10 @@
 import "./firebase.js";
 
-console.log("Script Autenticación ");
-
 // METODOS DE LOS SERVICIOS DE FIRESBASE QUE VAMOS A USAR 
 
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
+import { signInWithEmailAndPassword, } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import { getDocs, collection } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
 
 // IMPORTAMOS LAS VARIABLES QUE TENEMOS INICIALIZADAS EN FIREBASE.JS
 import { auth, db } from "./firebase.js";
@@ -29,12 +27,12 @@ if (btnAcceso) {
 
             onAuthStateChanged(auth, async(user) => {
 
+                console.log(user)
+
                 if (user) {
                     const uid = user.uid;
                     console.log(uid);
                     window.location.href = "app.html";
-
-
                 } else {
 
                 }
