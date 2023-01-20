@@ -1,13 +1,15 @@
 import "./firebase.js";
 
+
+
 // METODOS DE LOS SERVICIOS DE FIRESBASE QUE VAMOS A USAR 
 
-import { signInWithEmailAndPassword, } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
+
 
 
 // IMPORTAMOS LAS VARIABLES QUE TENEMOS INICIALIZADAS EN FIREBASE.JS
-import { auth, db } from "./firebase.js";
+import { auth } from "./firebase.js";
 
 
 /* ACCESO A LA PLATAFORMA - AUTENTICACIÓN */
@@ -25,18 +27,40 @@ if (btnAcceso) {
             const userCredentials = await signInWithEmailAndPassword(auth, email, password)
             console.log("Usuario logeado");
 
+            /* Observador de si acceso a la app  */
             onAuthStateChanged(auth, async(user) => {
-
-                console.log(user)
-
+                // Si existe el usuario 
                 if (user) {
-                    const uid = user.uid;
-                    console.log(uid);
+
+                    // Peticion a la base de datos los pedidos anteriores 
+
+
                     window.location.href = "app.html";
+
+
                 } else {
+                    displayOldOrders([]);
 
                 }
             });
+
+            /* Comprobador de Registro */
+
+            const loginCheck = user => {
+                // Si esta registrado el usuario 
+                if (user) {
+
+
+
+                    // Aqui debe ir si es cocinero solo se veria los pedidos 
+
+                } else {
+
+                    // 
+                }
+            }
+
+
 
 
         } catch (error) {

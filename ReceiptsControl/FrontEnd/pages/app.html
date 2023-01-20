@@ -32,39 +32,38 @@
                     <p class="counterOrder ">5</p>
                     <div id="pedidosPad"> 
                         <p>Área de pedidos </p>
-                        <div id="cart" ></div>
-                       
-                        
+                        <div id="cart" ></div>                        
                     </div>
                 </i></li>
                     <li><i class="fa-solid fa-power-off " id="btnSignOff"></i></li>
                 </ul>
             </div>
         </nav>
-        <section>
-            <form class="AddNewUser" style="display: none;">
-                <p>Formulario nuevo usuario </p>
-                <div class="btnNuevoUsuario">
-                    <button id="nuevoUsuario"> Crear usuario  </button>
-                </div>
-                <div class="DatosEmpleado">
-                    <label>Nombre</label>
-                    <input type="text" id="nombre">
-                    <label>Apellidos</label>
-                    <input type="text" id="apellidos">
-                </div>
-                <div class="DatosUsuario">
-                    <label>Correo</label>
-                    <input type="text" id="correo">
-                    <label>Contraseña</label>
-                    <input type="text" id="contraseña">
-                </div>
-                <div class="DatosExtras">
-                    <div class="Contacto">
-                        <label for="">Telefono</label>
-                        <input type="text" id="telefono">
+        <section id="sectionForm">
+            <form class="AddNewUser" id="form">
+                <ul>
+                    <li>Formulario nuevo usuario </li>
+                    <li id="closePad">X</li>
+                </ul>
+
+                <div class="Datos">
+                    <div class="DatosEmpleado">
+                        <label>Nombre</label>
+                        <input type="text" class="inputs" id="nombre" name="nombre">
                     </div>
-                    <div class="Categoria">
+                    <div class="DatosEmpleado">
+                        <label>Apellidos</label>
+                        <input type="text" class="inputs" id="apellidos" name="apellidos">
+                    </div>
+                    <div class="DatosEmpleado">
+                        <label>Correo</label>
+                        <input type="text" class="inputs" id="correo" name="correo" placeholder="ejemplo@control.com">
+                    </div>
+                    <div class="DatosEmpleado">
+                        <label for="">Telefono</label>
+                        <input type="text" name="telefono" class="inputs" id="telefono">
+                    </div>
+                    <div class="DatosEmpleado">
                         <label for="">Categoria</label>
                         <select name="" id="categoria">
                         <option value="">Camarero</option>
@@ -73,9 +72,12 @@
                     </select>
                     </div>
                 </div>
+                <div class="btnNuevoUsuario">
+                    <button id="nuevoUsuario"> Crear usuario  </button>
+                </div>
             </form>
         </section>
-        <section class="Pad">
+        <section id="Pad">
             <div id="productos"> </div>
         </section>
 

@@ -1,21 +1,21 @@
 import "./auth.js";
 
-import { displayOldOrders } from "./oldOrders.js";
 
-import { auth, db } from "./firebase.js";
+
+
+import { auth, db, getOldOrders, onGetOldOrders, deleteOldORder } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { getDocs, collection } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 
 
-document.addEventListener("DOMContentLoaded", () => {
+
+document.addEventListener("DOMContentLoaded", async() => {
 
     showProductos();
 
-    functionalitiesApp();
+    requestOldOrders();
 
     displays();
-
-
 
 
 
@@ -120,8 +120,6 @@ function showProductos() {
                         total += checkAmount(countProducts.value) * element.precio;
                         total = Math.round((total + Number.EPSILON) * 100) / 100;
                         purchaseTotal.innerText = "Total: " + total + "€";
-
-
                     });
 
 
@@ -144,57 +142,67 @@ function showProductos() {
 
 }
 
-function functionalitiesApp() {
+const requestOldOrders = async() => {
 
-    /* Observador de si acceso a la app  */
-    onAuthStateChanged(auth, async(user) => {
-        // Si existe el usuario 
-        if (user) {
+    const orderList = document.getElementById('oldOrders');
 
-            // Peticion a la base de datos los pedidos anteriores 
-            const querySnapshot = await getDocs(collection(db, 'pedidosCerrados'));
-            displayOldOrders(querySnapshot.docs);
+    onGetOldOrders((querySnapshot) => {
 
-
-        } else {
-            displayOldOrders([]);
-
-        }
-    });
-
-    /* Comprobador de Registro */
-
-    const loginCheck = user => {
-        // Si esta registrado el usuario 
-        if (user) {
-
-            // Aqui debe ir si es cocinero solo se veria los pedidos 
-
-        } else {
-
-            // 
+        let list = ""
+        querySnapshot.forEach(doc => {
+            const post = doc.data();
+            console.log(post);
+            const li = `  
+                <div class="close">
+                    <ul>
+                        <li>Camarero/a: ${post.empleado}</li>
+                        <li>Mesa: nº${post.mesa }</li>
+                    </ul>
+                    <p>${post.pedido}</p>
+                    <div id="btn_DeleteDIV">
+                    <button class='btn_delete'   data-id="${doc.id}" > Eliminar permanentemente </button></div>
+                </div>                      
+                `
+            list += li;
 
 
-        }
-    }
+        })
+        orderList.innerHTML = list;
 
-    /* Cerrar sesion : Servicio Firebase sign Out */
-    const logOut = document.getElementById('btnSignOff');
+        const btnsDelete = orderList.querySelectorAll('.btn_delete');
 
-    logOut.addEventListener('click', async() => {
-        await signOut(auth);
-        console.log("user sign out");
-        window.location.href = "login.html";
-    });
+        btnsDelete.forEach(btn => {
+            //  Al activar el boton obtenemos el contenido del boton mediante el target del doc  : propiedades del objeto 
+            btn.addEventListener('click', async({ target: { dataset } }) => {
+                console.log("clicking", dataset)
+
+                try {
+                    await deleteOldORder(dataset.id);
+                    // Podria poner un mensaje de alerta de archivo eliminado
+
+                } catch (error) {
+                    console.log(error);
+
+                }
+
+            })
+        })
+        console.log(querySnapshot.docs);
+
+    })
 
 
 }
+
+
 
 function displays() {
 
     const pad02 = document.getElementById('pad02').addEventListener('click', () => {
         const oldOrdersPad = document.getElementById('OldOrdersPad');
+
         if (oldOrdersPad.style.display === 'none') {
+
             oldOrdersPad.style.display = 'block';
         } else {
             oldOrdersPad.style.display = 'none';
@@ -203,6 +211,7 @@ function displays() {
 
     const pad03 = document.getElementById('pad03').addEventListener('click', () => {
         const pedidosPad = document.getElementById('pedidosPad');
+        requestOldOrders();
         if (pedidosPad.style.display === 'none') {
             pedidosPad.style.display = 'block';
         } else {
@@ -210,4 +219,33 @@ function displays() {
         }
     });
 
+    const altaUsuarioPad = document.getElementById('altaUsuario').addEventListener('click', () => {
+        const formAddUser = document.getElementById('form');
+
+        if (formAddUser.style.display === 'none') {
+            document.getElementById('Pad').style.display = "none";
+            formAddUser.style.display = 'block';
+
+        } else {
+            formAddUser.style.display = 'none';
+            const closeForm = document.getElementById('closePad').addEventListener('click', () => {
+                formAddUser.style.display = 'none';
+                document.getElementById('Pad').style.display = "block";
+            })
+        }
+
+
+    })
+
 }
+
+
+
+/* Cerrar sesion : Servicio Firebase sign Out */
+const logOut = document.getElementById('btnSignOff');
+
+logOut.addEventListener('click', async() => {
+    await signOut(auth);
+    console.log("user sign out");
+    // window.location.href = "login.html";
+});
