@@ -398,7 +398,7 @@ i {
     padding: 2%;
     width: 800px;
     border-radius: 25px;
-    display: none;
+    display: block;
 }
 
 .AddNewUser>ul {
@@ -489,11 +489,23 @@ i {
 /* Validacion del formulario  */
 
 .errorInput {
-    border: 1px solid red;
+    border-radius: 10px;
+    background-color: red;
 }
 
 .correctInput {
-    border: 1px solid rgb(6, 221, 6);
+    background-color: rgb(6, 221, 6);
+}
+
+#RegistroCorrecto {
+    position: absolute;
+    top: 250px;
+    left: 30%;
+    background-color: #0751a6;
+    padding: 6%;
+    color: white;
+    font-weight: bold;
+    display: none;
 }
 
 

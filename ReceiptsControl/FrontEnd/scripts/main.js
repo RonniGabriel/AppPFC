@@ -1,13 +1,9 @@
 import "./auth.js";
-
-
-
+import "./addUsers.js";
 
 import { auth, db, getOldOrders, onGetOldOrders, deleteOldORder } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { getDocs, collection } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
-
-
 
 document.addEventListener("DOMContentLoaded", async() => {
 
@@ -18,11 +14,10 @@ document.addEventListener("DOMContentLoaded", async() => {
     displays();
 
 
-
 });
 
 
-
+/* Cargar los productos del Archivo Json */
 function showProductos() {
 
     var ajax = new XMLHttpRequest();
@@ -141,7 +136,7 @@ function showProductos() {
 
 
 }
-
+/* Peticion de los pedidos cerrados a la base de datos */
 const requestOldOrders = async() => {
 
     const orderList = document.getElementById('oldOrders');
@@ -165,8 +160,8 @@ const requestOldOrders = async() => {
                 `
             list += li;
 
-
         })
+
         orderList.innerHTML = list;
 
         const btnsDelete = orderList.querySelectorAll('.btn_delete');
@@ -194,8 +189,10 @@ const requestOldOrders = async() => {
 
 }
 
+/* Funcion de añadir un nuevo usuario a la base de datos. */
 
 
+/* Control de los menus: Apariciones  */
 function displays() {
 
     const pad02 = document.getElementById('pad02').addEventListener('click', () => {
@@ -238,6 +235,8 @@ function displays() {
     })
 
 }
+
+
 
 
 

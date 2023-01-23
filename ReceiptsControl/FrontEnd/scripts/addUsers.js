@@ -1,6 +1,9 @@
 const formulario = document.getElementById('form');
 const addUser = document.getElementById('nuevoUsuario');
 const inputs = document.querySelectorAll('.inputs');
+const categoria = document.getElementById('categoria');
+
+
 
 
 const expresiones = {
@@ -12,7 +15,14 @@ const expresiones = {
 
 };
 
-const Form = (e) => {
+const datas = {
+    nombre: false,
+    apellidos: false,
+    correo: false,
+    telefono: false
+}
+
+const form = (e) => {
     switch (e.target.name) {
         case "nombre":
             checkForm(expresiones.nombre, e.target, 'nombre');
@@ -29,25 +39,47 @@ const Form = (e) => {
     }
 };
 
-const checkForm = (expresion, input, id) => {
+const checkForm = (expresion, input, idInput) => {
+
     if (expresion.test(input.value)) {
-        document.getElementById(`${id}`).classList.add('correctInput');
-        document.getElementById(`${id}`).classList.remove('errorInput');
+
+        document.getElementById(`${idInput}`).classList.remove("errorInput");
+        document.getElementById(`${idInput}`).classList.add("correctInput");
+        datas[`${idInput}`] = true;
     } else {
-        document.getElementById(`${id}`).classList.add('errorInput');
+        document.getElementById(`${idInput}`).classList.add("errorInput");
+
+        datas[`${idInput}`] = false;
     }
 
 }
 
 
 inputs.forEach((input) => {
-    input.addEventListener('keyup', Form);
-    input.addEventListener('blur', Form);
+    input.addEventListener('keyup', form);
+    input.addEventListener('blur', form);
 });
 
 
 
 addUser.addEventListener('click', (e) => {
+
+    if (datas.nombre && datas.apellidos && datas.correo && datas.telefono) {
+        // Si todo es correcto
+        if (document.getElementById('RegistroCorrecto').style.display = "none") {
+            document.getElementById('RegistroCorrecto').style.display = "block";
+        }
+
+    }
+    const dataNombre = inputs[0].value;
+    const dataApellidos = inputs[1].value;
+    const dataCorreo = inputs[2].value;
+    const dataTelefono = inputs[3].value;
+    const dataCategoria = categoria.value;
+    console.log(dataNombre, dataApellidos, dataCorreo, dataTelefono, dataCategoria);
     e.preventDefault();
+    formulario.reset();
+
+
 
 })
