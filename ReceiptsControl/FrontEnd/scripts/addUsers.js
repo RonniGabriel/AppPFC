@@ -5,7 +5,6 @@ const categoria = document.getElementById('categoria');
 
 
 
-
 const expresiones = {
 
     nombre: /^[ÁÉÍÓÚA-Z][a-záéíóú]+(\s+[ÁÉÍÓÚA-Z]?[a-záéíóú]+)*$/, // Cualquier letra  y espacios y con acentos.
@@ -62,24 +61,12 @@ inputs.forEach((input) => {
 
 
 
-addUser.addEventListener('click', (e) => {
 
+/* 
     if (datas.nombre && datas.apellidos && datas.correo && datas.telefono) {
         // Si todo es correcto
         if (document.getElementById('RegistroCorrecto').style.display = "none") {
             document.getElementById('RegistroCorrecto').style.display = "block";
         }
-
-    }
-    const dataNombre = inputs[0].value;
-    const dataApellidos = inputs[1].value;
-    const dataCorreo = inputs[2].value;
-    const dataTelefono = inputs[3].value;
-    const dataCategoria = categoria.value;
-    console.log(dataNombre, dataApellidos, dataCorreo, dataTelefono, dataCategoria);
-    e.preventDefault();
-    formulario.reset();
-
-
-
-})
+formulario.reset();
+    } */

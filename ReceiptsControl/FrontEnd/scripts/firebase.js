@@ -4,7 +4,7 @@
 // Import the functions you need from the SDKs you need 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
-import { getFirestore, getDocs, collection, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+import { getFirestore, getDocs, collection, onSnapshot, deleteDoc, doc, addDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,13 +24,24 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-
-
 /* Peticiones a la base de datos  */
 
 export const getOldOrders = () => getDocs(collection(db, 'pedidosCerrados'));
 export const onGetOldOrders = (callBack) => onSnapshot(collection(db, 'pedidosCerrados'), callBack)
 export const deleteOldORder = id => deleteDoc(doc(db, 'pedidosCerrados', id));
+
+export const addUser = (name, surname, email, phone, categorie) => {
+
+    addDoc(collection(db, "Empleados"), {
+        name: "Tokyo",
+        country: "Japan",
+        nombre: name,
+        apellidos: surname,
+        correo: email,
+        telefono: phone,
+        categoria: categorie
+    });
+}
 
 
 

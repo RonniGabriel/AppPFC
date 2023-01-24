@@ -1,9 +1,9 @@
 import "./auth.js";
 import "./addUsers.js";
 
-import { auth, db, getOldOrders, onGetOldOrders, deleteOldORder } from "./firebase.js";
+import { auth, db, onGetOldOrders, deleteOldORder, addUser } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import { getDocs, collection } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+import { getDocs, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 
 document.addEventListener("DOMContentLoaded", async() => {
 
@@ -190,6 +190,23 @@ const requestOldOrders = async() => {
 }
 
 /* Funcion de añadir un nuevo usuario a la base de datos. */
+const btnNewUser = document.getElementById('nuevoUsuario');
+
+btnNewUser.addEventListener('click', (e) => {
+
+    e.preventDefault();
+
+    const name = document.getElementById('nombre').value;
+    const surname = document.getElementById('apellidos').value;
+    const email = document.getElementById('correo').value;
+    const phone = document.getElementById('telefono').value;
+    const categorie = document.getElementById('categoria').value;
+
+    addUser(name, surname, email, phone, categorie);
+    console.log("usuario registrado correctamente");
+
+})
+
 
 
 /* Control de los menus: Apariciones  */
@@ -235,10 +252,6 @@ function displays() {
     })
 
 }
-
-
-
-
 
 /* Cerrar sesion : Servicio Firebase sign Out */
 const logOut = document.getElementById('btnSignOff');
