@@ -26,10 +26,32 @@ export const db = getFirestore(app);
 
 /* Peticiones a la base de datos  */
 
-export const getOldOrders = () => getDocs(collection(db, 'pedidosCerrados'));
-export const onGetOldOrders = (callBack) => onSnapshot(collection(db, 'pedidosCerrados'), callBack)
-export const deleteOldORder = id => deleteDoc(doc(db, 'pedidosCerrados', id));
+export const onGetOldOrders = (callBack) => onSnapshot(collection(db, 'PedidosCerrados'), callBack)
+export const deleteOldORder = id => deleteDoc(doc(db, 'PedidosCerrados', id));
 
+export const onGetActiveOrders = (callBack1) => onSnapshot(collection(db, 'PedidosActivos'), callBack1);
+export const deleteActiveOrder = id => deleteDoc(doc(db, 'PedidosActivos', id));
+
+
+
+
+export const addOrder = (table, precio, content) => {
+
+
+    addDoc(collection(db, "PedidosActivos"), {
+
+        mesa: table,
+        precio: precio,
+        contenido: content
+
+
+    });
+}
+export const closeOrder = (mesa, precio, content) => addDoc(collection(db, 'PedidosCerrados'), {
+    mesa: mesa,
+    precio: precio,
+    contenido: content
+});
 export const addUser = (name, surname, email, phone, categorie) => {
 
     addDoc(collection(db, "Empleados"), {

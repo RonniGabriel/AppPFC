@@ -28,13 +28,20 @@
                             <div id="oldOrders"></div>
                         </div>
                     </li>
-                    <li id="pad03" class="carpeta"><i class="fa-solid fa-cart-shopping ">
-                    <p class="counterOrder ">5</p>
-                    <div id="pedidosPad"> 
-                        <p>Área de pedidos </p>
-                        <div id="cart" ></div>                        
-                    </div>
-                </i></li>
+                    <li id="pad03" class="carpeta">
+                        <i class="fa-solid fa-cart-shopping "></i>
+
+                        <p class="counterOrder ">5</p>
+                        <div id="pedidosPad">
+                            <div class="closeOrder">
+                                <p>Área de pedidos </p>
+                                <button id="closeBtn"> X </button>
+                            </div>
+                            <div id="cart"></div>
+                            <div id="activeOrdersPad"></div>
+                        </div>
+
+                    </li>
                     <li><i class="fa-solid fa-power-off " id="btnSignOff"></i></li>
                 </ul>
             </div>
@@ -43,7 +50,7 @@
             <form class="AddNewUser" id="form">
                 <ul>
                     <li>Formulario nuevo usuario </li>
-                    <li id="closePad">X</li>
+                    <li id="closeForm">X</li>
                 </ul>
 
                 <div class="Datos">

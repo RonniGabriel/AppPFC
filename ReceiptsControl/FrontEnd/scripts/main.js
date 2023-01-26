@@ -1,7 +1,7 @@
 import "./auth.js";
 import "./addUsers.js";
 
-import { auth, db, onGetOldOrders, deleteOldORder, addUser } from "./firebase.js";
+import { auth, db, onGetOldOrders, onGetActiveOrders, deleteOldORder, addUser, addOrder, closeOrder, deleteActiveOrder } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 import { getDocs, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 
@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", async() => {
     showProductos();
 
     requestOldOrders();
+    requestActiveOrders();
 
     displays();
 
@@ -39,17 +40,26 @@ function showProductos() {
                 let total = 0;
                 let cartDiv = document.getElementById('cart');
                 let cartItems = document.createElement('div');
+                let tableDiv = document.createElement('div');
+                tableDiv.id = "tableDiv";
+                let label = document.createElement('label');
+                label.textContent = "Mesa nº: ";
                 cartItems.id = "itemsCart"
-                let cart = document.createElement('li');
-                cart.innerText = "Pedido nº";
+                let table = document.createElement('input');
+                table.setAttribute("type", "number");
+                table.id = "inputTable";
                 let purchaseTotal = document.createElement('li');
+                purchaseTotal.id = "precio";
                 purchaseTotal.innerText = "Total :" + total + "€";
+
+                tableDiv.append(label, table)
 
                 let addOrder = document.createElement('button');
                 addOrder.id = "addOrder";
-                addOrder.textContent = "Generar pedido"
+                addOrder.textContent = "Generar pedido";
+                addOrder.addEventListener('click', activateOrder);
 
-                cartDiv.append(cart, cartItems, purchaseTotal, addOrder);
+                cartDiv.append(tableDiv, cartItems, purchaseTotal, addOrder);
 
                 obj01.items.forEach(element => {
 
@@ -89,6 +99,7 @@ function showProductos() {
                         let divBuy = document.createElement('div');
                         divBuy.className = "divBuy";
                         let itemSelected = document.createElement('li');
+                        itemSelected.className = "itemSelected"
                         let deleteButton = document.createElement('button');
                         let totalIndividual = (element.precio * checkAmount(countProducts.value)).toFixed(2);
 
@@ -139,40 +150,102 @@ function showProductos() {
 /* Peticion de los pedidos cerrados a la base de datos */
 const requestOldOrders = async() => {
 
-    const orderList = document.getElementById('oldOrders');
+        const orderList = document.getElementById('oldOrders');
 
-    onGetOldOrders((querySnapshot) => {
+        onGetOldOrders((querySnapshot) => {
 
-        let list = ""
-        querySnapshot.forEach(doc => {
-            const post = doc.data();
-            console.log(post);
-            const li = `  
+            let list = ""
+            querySnapshot.forEach(doc => {
+                const post = doc.data();
+                console.log(post);
+                const li = `  
                 <div class="close">
                     <ul>
-                        <li>Camarero/a: ${post.empleado}</li>
+                        <li>Precio: ${post.precio}</li>
                         <li>Mesa: nº${post.mesa }</li>
                     </ul>
-                    <p>${post.pedido}</p>
+                    <p>${post.contenido}</p>
                     <div id="btn_DeleteDIV">
-                    <button class='btn_delete'   data-id="${doc.id}" > Eliminar permanentemente </button></div>
+                    <button class='btn_delete' data-id="${doc.id}" > Eliminar permanentemente </button></div>
                 </div>                      
                 `
-            list += li;
+                list += li;
+
+            })
+
+            orderList.innerHTML = list;
+
+            const btnsDelete = orderList.querySelectorAll('.btn_delete');
+
+            btnsDelete.forEach(btn => {
+                //  Al activar el boton obtenemos el contenido del boton mediante el target del doc  : propiedades del objeto 
+                btn.addEventListener('click', async({ target: { dataset } }) => {
+                    console.log("clicking", dataset)
+
+                    try {
+                        await deleteOldORder(dataset.id);
+                        // Podria poner un mensaje de alerta de archivo eliminado
+
+                    } catch (error) {
+                        console.log(error);
+
+                    }
+
+                })
+            })
+            console.log(querySnapshot.docs);
 
         })
 
-        orderList.innerHTML = list;
 
-        const btnsDelete = orderList.querySelectorAll('.btn_delete');
+    }
+    /* Funcion de mostrar los pedidos activos  */
 
-        btnsDelete.forEach(btn => {
+const requestActiveOrders = async() => {
+    // Peticion a la base de datos de Pedidos Acti
+
+    const orderList1 = document.getElementById('activeOrdersPad');
+
+    onGetActiveOrders((querySnapshot1) => {
+        let list1 = "";
+        querySnapshot1.forEach(doc => {
+            const post = doc.data();
+            // console.log(post);
+            const li = `  
+            <div class="active">
+                <ul>
+                    <li id="activePrecio">Precio: ${post.precio}</li>
+                    <li id="activeMesa">Mesa: nº${post.mesa}</li>
+                </ul>
+                <p id="activeContenido">${post.contenido}</p>
+                <div id="btn_DeleteDIV">
+                <button id='chargeBtn' class='chargeOrder' data-id="${doc.id}" > Cobrar Pedido </button></div>
+            </div>                      
+            `
+            list1 += li;
+
+
+        })
+        orderList1.innerHTML = list1;
+        const btnsCharger = orderList1.querySelectorAll('.chargeOrder');
+
+        btnsCharger.forEach(btn => {
             //  Al activar el boton obtenemos el contenido del boton mediante el target del doc  : propiedades del objeto 
             btn.addEventListener('click', async({ target: { dataset } }) => {
                 console.log("clicking", dataset)
 
+                const precio = document.getElementById('activePrecio');
+                const mesa = document.getElementById('activeMesa');
+
+                const content = document.getElementById('activeContenido');
+
+
+                console.log(mesa.textContent, precio.textContent, content.textContent)
+
                 try {
-                    await deleteOldORder(dataset.id);
+                    await closeOrder(mesa.textContent, precio.textContent, content.textContent);
+
+                    await deleteActiveOrder(dataset.id);
                     // Podria poner un mensaje de alerta de archivo eliminado
 
                 } catch (error) {
@@ -181,13 +254,18 @@ const requestOldOrders = async() => {
                 }
 
             })
+
         })
-        console.log(querySnapshot.docs);
 
-    })
 
+
+    });
 
 }
+
+
+
+
 
 /* Funcion de añadir un nuevo usuario a la base de datos. */
 const btnNewUser = document.getElementById('nuevoUsuario');
@@ -207,6 +285,27 @@ btnNewUser.addEventListener('click', (e) => {
 
 })
 
+/* Funcion de generar pedidos activos  */
+function activateOrder() {
+
+    const table = document.getElementById('inputTable').value;
+
+    const precio = document.getElementById('precio').textContent;
+    const item = document.getElementsByClassName('itemSelected');
+    let contenido = "";
+    for (let i = 0; i < item.length; i++) {
+
+        var text = item[i].textContent;
+        contenido += text;
+    }
+
+    console.log(contenido);
+    addOrder(table, precio, contenido);
+
+
+}
+
+
 
 
 /* Control de los menus: Apariciones  */
@@ -214,6 +313,7 @@ function displays() {
 
     const pad02 = document.getElementById('pad02').addEventListener('click', () => {
         const oldOrdersPad = document.getElementById('OldOrdersPad');
+        requestOldOrders();
 
         if (oldOrdersPad.style.display === 'none') {
 
@@ -222,31 +322,36 @@ function displays() {
             oldOrdersPad.style.display = 'none';
         }
     });
-
+    const pedidosPad = document.getElementById('pedidosPad');
     const pad03 = document.getElementById('pad03').addEventListener('click', () => {
-        const pedidosPad = document.getElementById('pedidosPad');
-        requestOldOrders();
-        if (pedidosPad.style.display === 'none') {
-            pedidosPad.style.display = 'block';
-        } else {
-            pedidosPad.style.display = 'none';
-        }
+
+
+        pedidosPad.style.display = 'block';
+        document.getElementById('closeBtn').addEventListener('click', (event) => {
+            e.preventDefault();
+            console.log("EOOO")
+            document.getElementById('pedidosPad').style.display = "block";
+
+
+        });
+
+
     });
+
+
 
     const altaUsuarioPad = document.getElementById('altaUsuario').addEventListener('click', () => {
         const formAddUser = document.getElementById('form');
 
-        if (formAddUser.style.display === 'none') {
-            document.getElementById('Pad').style.display = "none";
-            formAddUser.style.display = 'block';
+        formAddUser.style.display = 'block';
+        document.getElementById('Pad').style.display = "none";
 
-        } else {
+        document.getElementById('closeForm').addEventListener('click', () => {
+
             formAddUser.style.display = 'none';
-            const closeForm = document.getElementById('closePad').addEventListener('click', () => {
-                formAddUser.style.display = 'none';
-                document.getElementById('Pad').style.display = "block";
-            })
-        }
+            document.getElementById('Pad').style.display = "block";
+        })
+
 
 
     })
