@@ -1,9 +1,8 @@
-const formulario = document.getElementById('form');
-const addUser = document.getElementById('nuevoUsuario');
+import { addUser, db, auth } from "./firebase.js";
+
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
+
 const inputs = document.querySelectorAll('.inputs');
-const categoria = document.getElementById('categoria');
-
-
 
 const expresiones = {
 
@@ -53,20 +52,59 @@ const checkForm = (expresion, input, idInput) => {
 
 }
 
-
 inputs.forEach((input) => {
     input.addEventListener('keyup', form);
     input.addEventListener('blur', form);
 });
 
 
+/* Funcion de añadir un nuevo usuario a la base de datos. */
+
+const btnNewUser = document.getElementById('nuevoUsuario');
+
+btnNewUser.addEventListener('click', (e) => {
+    const alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    function passGenerate(length = 6) {
+        let result = "";
+        for (let i = 0; i <= length; i++) {
+            result += alph.charAt(Math.floor(Math.random() * alph.length));
+        }
+        return result;
+    }
+
+    const pass = passGenerate();
+
+    const formulario = document.getElementById('form');
+    const name = document.getElementById('nombre').value;
+    const surname = document.getElementById('apellidos').value;
+    const email = document.getElementById('correo').value;
+    const phone = document.getElementById('telefono').value;
+    const categorie = document.getElementById('categoria').value;
 
 
-/* 
+
+    addUser(name, surname, email, phone, categorie, pass);
     if (datas.nombre && datas.apellidos && datas.correo && datas.telefono) {
         // Si todo es correcto
         if (document.getElementById('RegistroCorrecto').style.display = "none") {
             document.getElementById('RegistroCorrecto').style.display = "block";
         }
-formulario.reset();
-    } */
+        formulario.reset();
+        console.log("usuario registrado correctamente");
+    }
+
+
+
+    /* createUserWithEmailAndPassword(auth, email, pass)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+
+
+            // ...
+        })
+
+ */
+
+})

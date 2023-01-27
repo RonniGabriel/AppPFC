@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async() => {
 
 });
 
-
 /* Cargar los productos del Archivo Json */
 function showProductos() {
 
@@ -262,9 +261,6 @@ const requestActiveOrders = async() => {
     });
 
 }
-
-
-
 
 
 /* Funcion de añadir un nuevo usuario a la base de datos. */
