@@ -4,7 +4,7 @@
 // Import the functions you need from the SDKs you need 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
-import { getFirestore, collection, onSnapshot, deleteDoc, doc, addDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+import { getFirestore, collection, onSnapshot, deleteDoc, doc, addDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,7 +35,7 @@ export const deleteActiveOrder = id => deleteDoc(doc(db, 'PedidosActivos', id));
 export const addOrder = (table, precio, content) => {
 
 
-    addDoc(collection(db, "PedidosActivos"), {
+    addDoc(collection(db, "PedidosActivos", ), {
 
         mesa: table,
         precio: precio,
@@ -49,9 +49,11 @@ export const closeOrder = (mesa, precio, content) => addDoc(collection(db, 'Pedi
     precio: precio,
     contenido: content
 });
-export const addUser = (name, surname, email, phone, categorie, password) => {
+export const addUser = (name, surname, email, phone, categorie, password, id) => {
 
-    addDoc(collection(db, "Empleados"), {
+    const ref = doc(db, "Empleados", id);
+
+    setDoc(ref, {
 
         nombre: name,
         apellidos: surname,

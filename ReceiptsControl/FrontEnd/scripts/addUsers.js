@@ -1,7 +1,7 @@
-import { addUser, db, auth } from "./firebase.js";
+import { db, auth, addUser } from "./firebase.js";
 
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"
-
+import { getFirestore, collection, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 const inputs = document.querySelectorAll('.inputs');
 
 const expresiones = {
@@ -63,6 +63,7 @@ inputs.forEach((input) => {
 const btnNewUser = document.getElementById('nuevoUsuario');
 
 btnNewUser.addEventListener('click', (e) => {
+    e.preventDefault();
     const alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     function passGenerate(length = 6) {
@@ -83,12 +84,32 @@ btnNewUser.addEventListener('click', (e) => {
     const categorie = document.getElementById('categoria').value;
 
 
-
-    addUser(name, surname, email, phone, categorie, pass);
     if (datas.nombre && datas.apellidos && datas.correo && datas.telefono) {
         // Si todo es correcto
         if (document.getElementById('RegistroCorrecto').style.display = "none") {
             document.getElementById('RegistroCorrecto').style.display = "block";
+            createUserWithEmailAndPassword(auth, email, pass)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    e.preventDefault
+
+                    console.log(user.uid);
+                    const id = user.uid;
+
+
+                    addUser(name, surname, email, phone, categorie, pass, id);
+
+
+
+
+
+
+
+
+
+                })
+
+
         }
         formulario.reset();
         console.log("usuario registrado correctamente");
@@ -96,15 +117,5 @@ btnNewUser.addEventListener('click', (e) => {
 
 
 
-    /* createUserWithEmailAndPassword(auth, email, pass)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-
-
-            // ...
-        })
-
- */
 
 })

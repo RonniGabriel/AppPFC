@@ -1,9 +1,9 @@
 import "./auth.js";
 import "./addUsers.js";
 
-import { auth, db, onGetOldOrders, onGetActiveOrders, deleteOldORder, addUser, addOrder, closeOrder, deleteActiveOrder } from "./firebase.js";
+import { auth, db, onGetOldOrders, onGetActiveOrders, deleteOldORder, addOrder, closeOrder, deleteActiveOrder } from "./firebase.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
-import { getDocs, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+import { getDocs, collection, setDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
 
 document.addEventListener("DOMContentLoaded", async() => {
 
@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", async() => {
     requestActiveOrders();
 
     displays();
-
 
 });
 
@@ -195,8 +194,6 @@ const requestOldOrders = async() => {
             console.log(querySnapshot.docs);
 
         })
-
-
     }
     /* Funcion de mostrar los pedidos activos  */
 
@@ -262,25 +259,6 @@ const requestActiveOrders = async() => {
 
 }
 
-
-/* Funcion de añadir un nuevo usuario a la base de datos. */
-const btnNewUser = document.getElementById('nuevoUsuario');
-
-btnNewUser.addEventListener('click', (e) => {
-
-    e.preventDefault();
-
-    const name = document.getElementById('nombre').value;
-    const surname = document.getElementById('apellidos').value;
-    const email = document.getElementById('correo').value;
-    const phone = document.getElementById('telefono').value;
-    const categorie = document.getElementById('categoria').value;
-
-    addUser(name, surname, email, phone, categorie);
-    console.log("usuario registrado correctamente");
-
-})
-
 /* Funcion de generar pedidos activos  */
 function activateOrder() {
 
@@ -300,9 +278,6 @@ function activateOrder() {
 
 
 }
-
-
-
 
 /* Control de los menus: Apariciones  */
 function displays() {
