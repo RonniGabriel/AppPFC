@@ -33,6 +33,7 @@ function showProductos() {
 
                 var obj = this.responseText;
                 var obj01 = JSON.parse(obj);
+                var obj02 = obj01["items"];
 
 
                 let total = 0;
@@ -58,6 +59,107 @@ function showProductos() {
                 addOrder.addEventListener('click', activateOrder);
 
                 cartDiv.append(tableDiv, cartItems, purchaseTotal, addOrder);
+
+                /* // FILTRO DE PRODCUTOS 
+                const filters = document.querySelectorAll('.btnFilter');
+
+
+                const filtered = (e) => {
+
+                    switch (e.target.name) {
+                        case "bebidas":
+                            console.log("Bebidas filtradas ")
+                            obj02.forEach(function(element, index) {
+                                if (element['categoria'] === 'bebida') {
+
+                                    const bebidas = "";
+                                    console.log(element.nombre)
+
+                                    for (var i = 0; i < element.length; i++) {
+
+
+                                        bebidas += "<div class ='Articulo'><img class='Img' src='" +
+                                            element[i].img + "'><div class = 'Producto'>" +
+                                            element[i].nombre + "</div><div class='Precio'>" +
+                                            element[i].precio + "</div></div>"
+
+                                    }
+                                    document.getElementById('productos').innerHTML = bebidas;
+                                }
+                            })
+
+                            break;
+                        case "raciones":
+                            console.log("Raciones  filtradas ")
+                            obj02.forEach(function(element, index) {
+                                if (element['categoria'] === 'aperitivos') {
+
+                                    const aperitivos = "";
+                                    console.log(element.nombre)
+
+                                    for (var i = 0; i < element.length; i++) {
+
+
+                                        aperitivos += "<div class ='Articulo'><img class='Img' src='" +
+                                            element[i].img + "'><div class = 'Producto'>" +
+                                            element[i].nombre + "</div><div class='Precio'>" +
+                                            element[i].precio + "</div></div>"
+
+                                    }
+                                    document.getElementById('productos').innerHTML = aperitivos;
+                                }
+                            })
+
+                            break;
+                        case "postres":
+                            console.log("Postres  filtradas ");
+                            obj02.forEach(function(element, index) {
+                                if (element['categoria'] === 'postre') {
+
+
+                                    var postres = "";
+                                    console.log(element.nombre)
+
+                                    for (var i = 0; i < element.length; i++) {
+
+
+                                        postres += "<div class ='Articulo'><img class='Img' src='" +
+                                            element[i].img + "'><div class = 'Producto'>" +
+                                            element[i].nombre + "</div><div class='Precio'>" +
+                                            element[i].precio + "</div></div>"
+
+                                    }
+                                    document.getElementById('productos').innerHTML = postres;
+                                }
+                            })
+
+
+                            break;
+
+                    };
+
+                }
+
+
+                filters.forEach((filter) => {
+                    filter.addEventListener('click', filtered)
+                })
+
+
+                // PRODUCTOS 
+
+                var producto = "";
+
+                for (var i = 0; i < obj02.length; i++) {
+
+                    producto += "<div class ='Articulo'><img class='Img' src='" +
+                        obj02[i].img + "'><div class = 'Producto'>" +
+                        obj02[i].nombre + "</div><div class='Precio'>" +
+                        obj02[i].precio + "</div><div class ='BtnActions'><input  id='counterItems'type='number'><button class='BuyButton' ></div></div>"
+
+                }
+                document.getElementById('productos').innerHTML = producto;
+ */
 
                 obj01.items.forEach(element => {
 
@@ -155,7 +257,7 @@ const requestOldOrders = async() => {
             let list = ""
             querySnapshot.forEach(doc => {
                 const post = doc.data();
-                console.log(post);
+                //console.log(post);
                 const li = `  
                 <div class="close">
                     <ul>
@@ -335,5 +437,5 @@ const logOut = document.getElementById('btnSignOff');
 logOut.addEventListener('click', async() => {
     await signOut(auth);
     console.log("user sign out");
-    // window.location.href = "login.html";
+    window.location.href = "login.html";
 });
